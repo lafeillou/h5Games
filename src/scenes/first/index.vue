@@ -1,5 +1,8 @@
 <template>
-  <svg id="svg" style="width:100%;height:100%;" />
+  <div class="first-wrap">
+    <svg id="svg" style="width:100%;height:100%;" />
+    <div class="voice-btn"></div>
+  </div>
 </template>
 
 <script>
@@ -98,7 +101,20 @@ export default {
 
 
 <style lang="scss">
-.first-step1-slowly-bounce-in {
-  animation-duration: 3s !important;
+@import "@/assets/sass/mixin.scss";
+
+.first-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.voice-btn {
+  background: url("/assets/images/voice-btn-bg.png") no-repeat center center;
+  background-size: 100% 100%;
+  @include px2rem(width, 84);
+  @include px2rem(height, 84);
+  position: absolute;
+  @include px2rem(right, 106);
+  @include px2rem(bottom, 95);
 }
 </style>
