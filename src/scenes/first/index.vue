@@ -1,7 +1,5 @@
 <template>
-  <div class="test">
-    <svg id="svg" style="width:500px;height:500px;" />
-  </div>
+  <svg id="svg" style="width:100%;height:100%;" />
 </template>
 
 <script>
