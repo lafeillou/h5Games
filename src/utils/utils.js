@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 export function resize(value) {
-  console.log($(window).width());
+  // console.log($(window).width());
   let $window = $(window);
   let phoneWidth = $window.width();
   // let phoneHeight = $window.height();

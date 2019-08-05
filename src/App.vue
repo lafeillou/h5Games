@@ -22,11 +22,12 @@ export default {
 
 <style lang="scss" >
 @import "./assets/sass/mixin.scss";
+
 #app {
   height: 100%;
   position: relative;
   overflow: hidden;
-  background: url("/assets/images/bg.png") no-repeat center center;
+  background: #000 url("/assets/images/bg.png") no-repeat center center;
   background-size: 100% 100%;
 }
 // .main-search-input-wrap {

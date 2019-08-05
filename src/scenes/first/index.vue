@@ -64,21 +64,41 @@ export default {
     };
   },
   mounted() {
-    resize();
-    let s = window.Snap("#svg");
-    _.forEach(this.lettersPos, (value, key) => {
-      this.letters[key] = s.image(
+    this.step1();
+  },
+  methods: {
+    // The static page contains the following information VO_01
+    // Level 1 Week 1 Lesson 1
+    // Activity A: Meet the letters ABCDEFG
+    // Animated pictures: the letters ABCDEFG slowly zoom into view.
+    step1() {
+      let i = 0;
+      _.forEach(this.lettersPos, (value, key) => {
+        console.log(i);
+        setTimeout(() => {
+          this.letters[key] = this.zoomInLetter(value);
+          this.letters[key].addClass("animated bounceIn slow");
+        }, i * 1000);
+        i++;
+      });
+    },
+    zoomInLetter(value) {
+      let s = window.Snap("#svg");
+      return s.image(
         value.url,
         resize(value.x),
         resize(value.y),
         resize(value.w),
         resize(value.h)
       );
-    });
-    console.log(this.letters);
+    }
   }
 };
 </script>
 
 
-<style></style>
+<style lang="scss">
+.first-step1-slowly-bounce-in {
+  animation-duration: 3s !important;
+}
+</style>

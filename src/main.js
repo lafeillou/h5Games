@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 // 全局 reset
 import "normalize.css/normalize.css";
+import "animate.css";
+
 // 全局样式
 import "./assets/sass/main.scss";
 // 淘宝界面元素显示尺寸兼容方案(比较旧，最新推荐vw)
