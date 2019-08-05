@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { resize } from "@/utils/utils.js";
+import { resize, playByLocalUrl } from "@/utils/utils.js";
 import _ from "lodash";
 import $ from "jquery";
 
@@ -68,9 +68,13 @@ export default {
     };
   },
   mounted() {
+    $("#voice-btn").on("click", function() {
+      playByLocalUrl(this, "/assets/audio/let_s_meet_the_letters.m4a");
+    });
     this.step1(v => {
+      // 显示完最后一个字母G，显示声音播放按钮
       if (v === "g") {
-        console.log(v);
+        // console.log(v);
         // 设置vocice-btn
         $("#voice-btn")
           .css({ visibility: "visible" })
