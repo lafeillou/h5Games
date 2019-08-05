@@ -1,14 +1,20 @@
 <template>
-  <div id="app">123</div>
+  <div id="app">
+    <First></First>
+  </div>
 </template>
 
 <script>
+import First from "@/scenes/first/index.vue";
+
 export default {
   name: "app",
   data() {
     return {};
   },
-  components: {},
+  components: {
+    First
+  },
   mounted() {},
   methods: {}
 };
@@ -19,11 +25,14 @@ export default {
 #app {
   height: 100%;
   position: relative;
+  overflow: hidden;
+  background: url("/assets/images/bg.png") no-repeat center center;
+  background-size: 100% 100%;
 }
-.main-search-input-wrap {
-  position: absolute;
-  left: 0;
-  @include px2rem(top, 59);
-  width: 100%;
-}
+// .main-search-input-wrap {
+//   position: absolute;
+//   left: 0;
+//   @include px2rem(top, 59);
+//   width: 100%;
+// }
 </style>
