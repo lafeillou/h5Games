@@ -6,79 +6,51 @@
 </template>
 
 <script>
-import { resize, playByLocalUrl } from "@/utils/utils.js";
+import { resize, playByLocalUrl, lettersPos } from "@/utils/utils.js";
 import _ from "lodash";
 import $ from "jquery";
 
 export default {
   data() {
     return {
+      currentLetter: "",
+      step: 0,
       letters: {},
-      lettersPos: {
-        a: {
-          url: "/assets/images/letters/a.png",
-          w: 173,
-          h: 173,
-          x: 276,
-          y: 149
-        },
-        b: {
-          url: "/assets/images/letters/b.png",
-          w: 173,
-          h: 173,
-          x: 474,
-          y: 149
-        },
-        c: {
-          url: "/assets/images/letters/c.png",
-          w: 173,
-          h: 173,
-          x: 680,
-          y: 149
-        },
-        d: {
-          url: "/assets/images/letters/d.png",
-          w: 173,
-          h: 173,
-          x: 908,
-          y: 149
-        },
-        e: {
-          url: "/assets/images/letters/e.png",
-          w: 173,
-          h: 173,
-          x: 367,
-          y: 375
-        },
-        f: {
-          url: "/assets/images/letters/f.png",
-          w: 173,
-          h: 173,
-          x: 575,
-          y: 375
-        },
-        g: {
-          url: "/assets/images/letters/g.png",
-          w: 173,
-          h: 173,
-          x: 800,
-          y: 375
-        }
-      }
+      letterVoices: {
+        a: ["/assets/audio/VO_02.m4a", "/assets/audio/VO_03.m4a"],
+        b: ["/assets/audio/VO_04.m4a", "/assets/audio/VO_05.m4a"],
+        c: ["/assets/audio/VO_16.m4a", "/assets/audio/VO_17.m4a"],
+        d: ["/assets/audio/VO_18.m4a", "/assets/audio/VO_19.m4a"],
+        e: ["/assets/audio/VO_30.m4a", "/assets/audio/VO_31.m4a"],
+        f: ["/assets/audio/VO_32.m4a", "/assets/audio/VO_33.m4a"],
+        g: ["/assets/audio/VO_34.m4a", "/assets/audio/VO_35.m4a"]
+      },
+      lettersPos: lettersPos
     };
   },
   mounted() {
     $("#voice-btn").on("click", function() {
-      playByLocalUrl(this, "/assets/audio/let_s_meet_the_letters.m4a");
+      playByLocalUrl(this, "/assets/audio/VO_01.m4a");
     });
     this.step1(v => {
       // 显示完最后一个字母G，显示声音播放按钮
+      this.letters[v].removeClass("animated bounceIn");
+      this.letters[v].removeClass("animated shake");
       if (v === "g") {
         // console.log(v);
         // 设置vocice-btn
         $("#voice-btn")
           .css({ visibility: "visible" })
           .addClass("animated fadeIn");
+      }
+    });
+    let s = window.Snap("#svg");
+    s.click(() => {
+      if (this.step === 2) {
+        // a字母处于放大状态
+        // 将除了a字母以外字母淡入
+        this.step3();
+        return;
       }
     });
   },
@@ -101,7 +73,67 @@ export default {
         i++;
       });
     },
+    //     Title: Letters
+    // Show the letter A. When the screen is clicked,
+    // the letter A will slowly tilt side to side and VO_02 will play.
+    // After VO_02, the letter A will stop tilting and slowly grow bigger.
+    // VO_03 will play. At full size, letter A will start shaking.
+    step2() {
+      this.step = 1;
+      // 点击的是哪一个
+      // console.log(this.letters[key]);
+      _.forEach(this.letters, o => {
+        o.removeClass("infinite");
+      });
+      this.letters[this.currentLetter].addClass("animated shake slow infinite");
+      // if (key === "a") {
+      playByLocalUrl(null, this.letterVoices[this.currentLetter][0], () => {
+        // alert("end");
+        this.letters[this.currentLetter].removeClass("infinite");
+        // 1s中后，除了A以外的字母淡出
+        setTimeout(() => {
+          _.forEach(this.letters, (v, k) => {
+            if (k === this.currentLetter) {
+              v.animate(
+                {
+                  x: resize(487),
+                  y: resize(201),
+                  width: resize(173 * 2),
+                  height: resize(173 * 2)
+                },
+                1500,
+                window.mina.linear,
+                () => {
+                  // console.log("a放大");
+                  this.step = 2;
+                  setTimeout(() => {
+                    playByLocalUrl(
+                      null,
+                      this.letterVoices[this.currentLetter][1]
+                    );
+                  }, 0);
+                }
+              );
+            }
+            if (k !== this.currentLetter) {
+              v.animate(
+                {
+                  opacity: 0
+                },
+                1000,
+                window.mina.linear,
+                () => {
+                  console.log("消失了");
+                }
+              );
+            }
+          });
+        }, 500);
+      });
+      // }
+    },
     zoomInLetter(key, value) {
+      this.step = 0;
       let s = window.Snap("#svg");
       return s
         .image(
@@ -112,12 +144,54 @@ export default {
           resize(value.h)
         )
         .click(() => {
+          console.log(key);
+          // console.log(e);
           //新增字母的点击事件
           this.handleClick(key);
         });
     },
+    step3() {
+      _.forEach(this.letters, (v, k) => {
+        // debugger;
+        if (k === this.currentLetter) {
+          v.animate(
+            {
+              x: resize(this.lettersPos[this.currentLetter].x),
+              y: resize(this.lettersPos[this.currentLetter].y),
+              width: resize(173),
+              height: resize(173)
+            },
+            1000,
+            window.mina.linear,
+            () => {
+              console.log("返回初始状态");
+              this.step = 1;
+            }
+          );
+        }
+        if (k !== this.currentLetter) {
+          v.animate(
+            {
+              opacity: 1
+            },
+            1500,
+            window.mina.linear,
+            () => {
+              console.log("出现了");
+            }
+          );
+        }
+      });
+    },
     handleClick(key) {
-      alert(`you click ${key}`);
+      this.currentLetter = key;
+      let s = window.Snap("#svg");
+      s.append(this.letters[this.currentLetter]);
+      // alert(`you click ${key}`);
+      if (this.step === 2) {
+        return;
+      }
+      this.step2();
     }
   }
 };
@@ -130,7 +204,11 @@ export default {
 .first-wrap {
   width: 100%;
   height: 100%;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
 }
 .voice-btn {
   background: url("/assets/images/voice-btn-bg.png") no-repeat center center;
