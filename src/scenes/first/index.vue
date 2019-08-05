@@ -90,10 +90,13 @@ export default {
         resize(value.y),
         resize(value.w),
         resize(value.h)
-      ).click(function() {
+      ).click(() => {
           //新增字母的点击事件
-          alert(key)
+          this.handleClick(key)
       });
+    },
+    handleClick(key) {
+      alert(`you click ${key}`)
     }
   }
 };
