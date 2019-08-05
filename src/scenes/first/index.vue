@@ -1,13 +1,14 @@
 <template>
   <div class="first-wrap">
     <svg id="svg" style="width:100%;height:100%;" />
-    <div class="voice-btn"></div>
+    <div class="voice-btn" id="voice-btn"></div>
   </div>
 </template>
 
 <script>
 import { resize } from "@/utils/utils.js";
 import _ from "lodash";
+import $ from "jquery";
 
 export default {
   data() {
@@ -67,39 +68,52 @@ export default {
     };
   },
   mounted() {
-    this.step1();
+    this.step1(v => {
+      if (v === "g") {
+        console.log(v);
+        // 设置vocice-btn
+        $("#voice-btn")
+          .css({ visibility: "visible" })
+          .addClass("animated fadeIn");
+      }
+    });
   },
   methods: {
     // The static page contains the following information VO_01
     // Level 1 Week 1 Lesson 1
     // Activity A: Meet the letters ABCDEFG
     // Animated pictures: the letters ABCDEFG slowly zoom into view.
-    step1() {
+    step1(cb) {
       let i = 0;
       _.forEach(this.lettersPos, (value, key) => {
-        console.log(i);
+        // console.log(i);
         setTimeout(() => {
           this.letters[key] = this.zoomInLetter(key, value);
           this.letters[key].addClass("animated bounceIn slow");
+          this.letters[key].node.addEventListener("animationend", () => {
+            cb(key);
+          });
         }, i * 1000);
         i++;
       });
     },
     zoomInLetter(key, value) {
       let s = window.Snap("#svg");
-      return s.image(
-        value.url,
-        resize(value.x),
-        resize(value.y),
-        resize(value.w),
-        resize(value.h)
-      ).click(() => {
+      return s
+        .image(
+          value.url,
+          resize(value.x),
+          resize(value.y),
+          resize(value.w),
+          resize(value.h)
+        )
+        .click(() => {
           //新增字母的点击事件
-          this.handleClick(key)
-      });
+          this.handleClick(key);
+        });
     },
     handleClick(key) {
-      alert(`you click ${key}`)
+      alert(`you click ${key}`);
     }
   }
 };
@@ -122,5 +136,6 @@ export default {
   position: absolute;
   @include px2rem(right, 106);
   @include px2rem(bottom, 95);
+  visibility: hidden;
 }
 </style>
