@@ -76,13 +76,13 @@ export default {
       _.forEach(this.lettersPos, (value, key) => {
         console.log(i);
         setTimeout(() => {
-          this.letters[key] = this.zoomInLetter(value);
+          this.letters[key] = this.zoomInLetter(key, value);
           this.letters[key].addClass("animated bounceIn slow");
         }, i * 1000);
         i++;
       });
     },
-    zoomInLetter(value) {
+    zoomInLetter(key, value) {
       let s = window.Snap("#svg");
       return s.image(
         value.url,
@@ -90,7 +90,10 @@ export default {
         resize(value.y),
         resize(value.w),
         resize(value.h)
-      );
+      ).click(function() {
+          //新增字母的点击事件
+          alert(key)
+      });
     }
   }
 };
