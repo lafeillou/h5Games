@@ -209,15 +209,15 @@ export default {
   top: 0;
   bottom: 0;
   right: 0;
-}
-.voice-btn {
-  background: url("/assets/images/voice-btn-bg.png") no-repeat center center;
-  background-size: 100% 100%;
-  @include px2rem(width, 84);
-  @include px2rem(height, 84);
-  position: absolute;
-  @include px2rem(right, 106);
-  @include px2rem(bottom, 95);
-  visibility: hidden;
+  .voice-btn {
+    background: url("/assets/images/voice-btn-bg.png") no-repeat center center;
+    background-size: 100% 100%;
+    @include px2rem(width, 84);
+    @include px2rem(height, 84);
+    position: absolute;
+    @include px2rem(right, 106);
+    @include px2rem(bottom, 95);
+    visibility: hidden;
+  }
 }
 </style>
