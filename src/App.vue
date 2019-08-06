@@ -2,11 +2,13 @@
   <div id="app">
     <First v-show="currentScene === 0"></First>
     <Second v-show="currentScene === 1"></Second>
+    <Third v-show="currentScene === 2"></Third>
     <ul class="choose-to-compare">
       <li @click="selectScenes(0,'all')">A-G</li>
       <li @click="selectScenes(1,'a-b')">A-B</li>
       <li @click="selectScenes(1,'c-d')">C-D</li>
       <li @click="selectScenes(1,'e-f-g')">E-F-G</li>
+      <li @click="selectScenes(2,'game')">Games</li>
     </ul>
   </div>
 </template>
@@ -14,6 +16,7 @@
 <script>
 import First from "@/scenes/first/index.vue";
 import Second from "@/scenes/second/index.vue";
+import Third from "@/scenes/third/index.vue";
 
 export default {
   name: "app",
@@ -24,15 +27,18 @@ export default {
   },
   components: {
     First,
-    Second
+    Second,
+    Third
   },
   mounted() {},
   methods: {
     selectScenes(index, data) {
-      console.log(data);
+      // console.log(data);
       this.currentScene = index;
-      if (index > 0) {
+      if (index === 1) {
         this.$root.eventHub.$emit("compareLettersEvent", data);
+      } else if (index === 2) {
+        this.$root.eventHub.$emit("startGameEvent", data);
       }
     }
   }
@@ -55,7 +61,7 @@ export default {
     list-style: none;
     font-weight: bold;
     color: #333;
-    @include px2rem(margin-left, -170);
+    @include px2rem(margin-left, -250);
     li {
       float: left;
       @include px2rem(margin-left, 20);
@@ -64,10 +70,4 @@ export default {
     }
   }
 }
-// .main-search-input-wrap {
-//   position: absolute;
-//   left: 0;
-//   @include px2rem(top, 59);
-//   width: 100%;
-// }
 </style>
