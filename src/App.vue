@@ -1,22 +1,11 @@
 <template>
-  <div id="app">
-    <First v-show="currentScene === 0"></First>
-    <Second v-show="currentScene === 1"></Second>
-    <Third v-show="currentScene === 2"></Third>
-    <ul class="choose-to-compare">
-      <li @click="selectScenes(0,'all')">A-G</li>
-      <li @click="selectScenes(1,'a-b')">A-B</li>
-      <li @click="selectScenes(1,'c-d')">C-D</li>
-      <li @click="selectScenes(1,'e-f-g')">E-F-G</li>
-      <li @click="selectScenes(2,'game')">Games</li>
-    </ul>
+  <div id="app" @click="clickDesk">
+    <P01></P01>
   </div>
 </template>
 
 <script>
-import First from "@/scenes/first/index.vue";
-import Second from "@/scenes/second/index.vue";
-import Third from "@/scenes/third/index.vue";
+import P01 from "@/pages/p01.vue";
 
 export default {
   name: "app",
@@ -26,48 +15,56 @@ export default {
     };
   },
   components: {
-    First,
-    Second,
-    Third
+    P01
   },
   mounted() {},
   methods: {
-    selectScenes(index, data) {
-      // console.log(data);
-      this.currentScene = index;
-      if (index === 1) {
-        this.$root.eventHub.$emit("compareLettersEvent", data);
-      } else if (index === 2) {
-        this.$root.eventHub.$emit("startGameEvent", data);
-      }
+    clickDesk() {
+      this.$root.eventHub.$emit("clickDeskEvent");
     }
+    // selectScenes(index, data) {
+    //   // console.log(data);
+    //   this.currentScene = index;
+    //   if (index === 1) {
+    //     this.$root.eventHub.$emit("compareLettersEvent", data);
+    //   } else if (index === 2) {
+    //     this.$root.eventHub.$emit("startGameEvent", data);
+    //   }
+    // }
   }
 };
 </script>
 
 <style lang="scss" >
+html {
+  background-color: #000;
+}
 @import "./assets/sass/mixin.scss";
+@font-face {
+  font-family: "webfont";
+  font-display: swap;
+  src: url("/assets/font/webfont.eot"); /* IE9 */
+  src: url("/assets/font/webfont.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */ url("/assets/font/webfont.woff2") format("woff2"),
+    url("/assets/font/webfont.woff") format("woff"),
+    /* chrome、firefox */ url("/assets/font/webfont.ttf") format("truetype"),
+    /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+      url("/assets/font/webfont.svg#webfont") format("svg"); /* iOS 4.1- */
+}
 
+.web-font {
+  font-family: "webfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 #app {
-  height: 100%;
+  @include px2rem(height, 750);
+  @include px2rem(width, 1334);
   position: relative;
   overflow: hidden;
-  background: #000 url("/assets/images/bg.png") no-repeat center center;
-  background-size: 100% 100%;
-  ul.choose-to-compare {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    list-style: none;
-    font-weight: bold;
-    color: #333;
-    @include px2rem(margin-left, -250);
-    li {
-      float: left;
-      @include px2rem(margin-left, 20);
-      @include px2rem(margin-right, 20);
-      @include px2rem(font-size, 20);
-    }
-  }
+  background: #000 url("/assets/images/bg.png") no-repeat 0 0;
+  background-size: 100% auto;
 }
 </style>
