@@ -26,6 +26,7 @@ import P07 from "@/pages/p07.vue";
 import P08 from "@/pages/p08.vue";
 import P09 from "@/pages/p09.vue";
 import P10 from "@/pages/p10.vue";
+import $ from "jquery";
 
 export default {
   name: "app",
@@ -52,8 +53,39 @@ export default {
       let to = from + 1;
       this.currentPage = to;
     });
+    window.addEventListener("resize", this.renderResize, false);
+    this.$nextTick(() => {
+      let $app = $("#app");
+      let deviceW = document.documentElement.clientWidth;
+      let radio = deviceW / 1334;
+      $("html").css({ "font-size": 133.4 * radio });
+      $app.width(deviceW);
+      $app.height((deviceW * 750) / 1334);
+      $app.fadeIn(500);
+    });
+  },
+  beforeDestroy() {
+    // 移除监听
+    window.removeEventListener("resize", this.renderResize, false);
   },
   methods: {
+    // 判断是否横屏
+    renderResize() {
+      this.$nextTick(() => {
+        // 判断横竖屏
+        let width = document.documentElement.clientWidth;
+        let height = document.documentElement.clientHeight;
+        if (width > height) {
+          // 横屏下重新渲染
+          console.log("横屏！");
+        } else {
+          var r = confirm("建议在手机横屏状态下浏览,使用pc用户请忽略本提示！!");
+          if (r == true) {
+            location.reload();
+          }
+        }
+      });
+    },
     clickDesk() {
       this.$root.eventHub.$emit("clickDeskEvent");
     }
@@ -62,7 +94,9 @@ export default {
 </script>
 
 <style lang="scss" >
-html {
+html,
+body {
+  height: 100%;
   background-color: #000;
 }
 @import "./assets/sass/mixin.scss";
@@ -86,11 +120,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 #app {
+  display: none;
   @include px2rem(height, 750);
   @include px2rem(width, 1334);
   position: relative;
   overflow: hidden;
-  background: #000 url("/assets/images/bg.png") no-repeat 0 0;
+  background: #000 url("/assets/images/bg.png") no-repeat center center;
   background-size: 100% auto;
   .P {
     width: 100%;
