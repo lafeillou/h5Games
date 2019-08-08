@@ -52,6 +52,7 @@ export default {
           "/assets/audio/VO_54.m4a"
         ]
       },
+      letterSvgWrap: null,
       // 节点
       voiceJobDone: false,
       aniJobDone: false,
@@ -60,11 +61,32 @@ export default {
   },
   mounted() {
     this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+    // 启动动画
+    this.ani00()
+      .then(() => {
+        return this.ani01();
+      })
+      .then(() => {
+        this.aniJobDone = true;
+      });
   },
   methods: {
     handleClickDesk() {
-      // 返回首页
-      this.$root.eventHub.$emit("pageFinishedEvent", 1);
+      if (!this.voiceJobDone) {
+        playByLocalUrl(null, "/assets/audio/VO_60.m4a")
+          .then(() => {
+            return playByLocalUrl(null, "/assets/audio/VO_61.m4a");
+          })
+          .then(() => {
+            this.voiceJobDone = true;
+          });
+        return;
+      }
+
+      if (this.voiceJobDone && this.aniJobDone) {
+        // 返回首页
+        this.$root.eventHub.$emit("pageFinishedEvent", 1);
+      }
     },
     // -----------------------frames function
     // 4s
@@ -78,27 +100,70 @@ export default {
       });
     },
     // 绘制字母A路径
-    ani01() {},
-    // 展示两张图片
-    ani02() {}
-    //------------------------sub function
-    // drawLetterPath(key, value) {}
-    // zoomInLetter(key, value) {
-    //   this.step = 0;
-    //   let s = window.Snap("#e001");
-    //   return s
-    //     .image(
-    //       value.url,
-    //       resize(value.x),
-    //       resize(value.y),
-    //       resize(value.w),
-    //       resize(value.h)
-    //     )
-    //     .click(() => {
-    //       //新增字母的点击事件
-    //       // this.handleClick(key);
-    //     });
-    // }
+    ani01() {
+      return new Promise(resolve => {
+        console.log(1);
+        let s = window.Snap("#e001");
+
+        this.letterSvgWrap = s.g();
+        this.letterSvgWrap.attr({
+          stroke: "black",
+          fill: "white",
+          opacity: 0
+        });
+        let image = s
+          .image(
+            "/assets/images/play-letters/play-a.png",
+            resize(692),
+            resize(232),
+            resize(400),
+            resize(400)
+          )
+          .animate(
+            {
+              x: resize(392),
+              // 目标状态和位置
+              opacity: 1
+            },
+            1500,
+            window.mina.easeout,
+            () => {}
+          );
+        let rect = s
+          .rect(resize(92), resize(232), resize(400), resize(400))
+          .animate(
+            {
+              x: resize(392),
+              // 目标状态和位置
+              opacity: 1
+            },
+            1500,
+            window.mina.easeout,
+            () => {}
+          )
+          .attr({ "stroke-width": 0 });
+        this.letterSvgWrap.add(rect);
+        this.letterSvgWrap.add(image);
+        this.letterSvgWrap
+          .add(
+            window.Snap.parse(
+              svgPlayA(resize(392), resize(232), resize(400), resize(400))
+            )
+          )
+          .addClass("ani-path")
+          .animate(
+            {
+              // 目标状态和位置
+              opacity: 1
+            },
+            1500,
+            window.mina.easeout,
+            () => {
+              resolve();
+            }
+          );
+      });
+    }
   }
 };
 </script>
@@ -118,8 +183,26 @@ export default {
   }
 
   #e001 {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .ani-path {
+    @include px2rem(stroke-dasharray, 100);
+    @include px2rem(stroke-dashoffset, 100);
+    animation: dash 10s linear infinite;
+
+    @keyframes dash {
+      from {
+        @include px2rem(stroke-dashoffset, 100);
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
   }
 }
 </style>

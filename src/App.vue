@@ -10,6 +10,7 @@
     <P08 v-if="currentPage === 8"></P08>
     <P09 v-if="currentPage === 9"></P09>
     <P10 v-if="currentPage === 10"></P10>
+    <span class="web-font indexPageFontSize">{{currentPage}} | 10</span>
     <div id="audio-wrap" style="width:0;height:0;"></div>
   </div>
 </template>
@@ -94,6 +95,15 @@ html {
   .P {
     width: 100%;
     height: 100%;
+  }
+  .indexPageFontSize {
+    position: absolute;
+    left: 50%;
+    @include px2rem(bottom, 50);
+    @include px2rem(margin-left, -55);
+    color: #fff;
+    font-weight: bold;
+    @include px2rem(font-size, 30);
   }
 }
 </style>

@@ -84,7 +84,7 @@ export default {
         return;
       }
 
-      if (this.voiceJobDone && this.aniJobDone) {
+      if (this.voiceJobDone && this.aniJobDone && !this.A_GisDone) {
         this.ani03("a")
           .then(() => {
             return this.ani03("b");
