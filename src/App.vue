@@ -1,23 +1,36 @@
 <template>
   <div id="app" @click="clickDesk">
-    <P01></P01>
+    <P01 v-if="currentPage === 1"></P01>
+    <P02 v-if="currentPage === 2"></P02>
+    <P03 v-if="currentPage === 3"></P03>
+    <div id="audio-wrap" style="width:0;height:0;"></div>
   </div>
 </template>
 
 <script>
 import P01 from "@/pages/p01.vue";
+import P02 from "@/pages/p02.vue";
+import P03 from "@/pages/p03.vue";
 
 export default {
   name: "app",
   data() {
     return {
-      currentScene: 0
+      currentPage: 1
     };
   },
   components: {
-    P01
+    P01,
+    P02,
+    P03
   },
-  mounted() {},
+  mounted() {
+    this.$root.eventHub.$on("pageFinishedEvent", from => {
+      // 翻到下一页
+      let to = from + 1;
+      this.currentPage = to;
+    });
+  },
   methods: {
     clickDesk() {
       this.$root.eventHub.$emit("clickDeskEvent");
@@ -66,5 +79,9 @@ html {
   overflow: hidden;
   background: #000 url("/assets/images/bg.png") no-repeat 0 0;
   background-size: 100% auto;
+  .P {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

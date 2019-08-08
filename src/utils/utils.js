@@ -2,32 +2,42 @@ import $ from "jquery";
 
 export function resize(value) {
   // console.log($(window).width());
-  let $window = $(window);
-  let phoneWidth = $window.width();
-  // let phoneHeight = $window.height();
-  let radio = phoneWidth / 1334;
-  return value * radio;
+  // let $window = $(window);
+  // let phoneWidth = $window.width();
+  // // let phoneHeight = $window.height();
+  // let radio = phoneWidth / 1334;
+  let htmlFontSize =
+    $("html")
+      .css("font-size")
+      .replace("px", "") * 1;
+  // return value * radio;
+  return (value / 133.4) * htmlFontSize;
 }
 
-export function playByLocalUrl(dom, url, cb) {
-  let $audio = $("<audio></audio>");
-  $audio.attr("src", url);
-  $audio.attr("loop", false);
+export function playByLocalUrl(dom, url) {
+  return new Promise(resolve => {
+    let $audio = $("<audio></audio>");
+    $audio.attr("src", url);
+    // $audio.attr("loop", false);
+    // $audio.attr("autoplay", true);
 
-  if (typeof cb === "function") {
-    $audio[0].addEventListener("ended", cb, false);
-  }
-
-  if (dom) {
-    $(dom).html($audio);
-  } else {
-    $("body")
-      .find("audio")
-      .remove();
-    $("body").append($audio);
-  }
-
-  $audio[0].play();
+    $audio[0].addEventListener(
+      "ended",
+      () => {
+        resolve();
+      },
+      false
+    );
+    setTimeout(() => {
+      resolve();
+    }, 6000);
+    if (dom) {
+      $(dom).html($audio);
+    } else {
+      $("#audio-wrap").html($audio);
+    }
+    $audio[0].play();
+  });
 }
 
 export const lettersPos = {
