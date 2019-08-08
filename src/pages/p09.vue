@@ -1,7 +1,12 @@
 <template>
-  <div class="P P09">
-    <div class="web-font animated" id="e00">Let's Read</div>
-    <svg id="e001" />
+  <div class="P P08">
+    <div class="web-font animated" id="e00">Playdough letters</div>
+    <div class="pic-wrap-01 animated" id="e01">
+      <img src="/assets/images/alphabet-games-01.png" />
+    </div>
+    <div class="pic-wrap-02 animated" id="e02">
+      <img src="/assets/images/alphabet-games-02.png" />
+    </div>
   </div>
 </template>
 
@@ -9,7 +14,7 @@
 import $ from "jquery";
 // eslint-disable-next-line
 import { resize, playByLocalUrl, lettersPos } from "@/utils/utils.js";
-import _ from "lodash";
+// import _ from "lodash";
 
 export default {
   data() {
@@ -61,12 +66,12 @@ export default {
   },
   mounted() {
     this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+
     this.ani00()
       .then(() => {
         return this.ani01();
       })
       .then(() => {
-        $("#e00").remove();
         return this.ani02();
       })
       .then(() => {
@@ -75,43 +80,23 @@ export default {
   },
   methods: {
     handleClickDesk() {
-      // console.log("clickDeskEvent");
-
       if (!this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_47.m4a").then(() => {
-          this.voiceJobDone = true;
+        playByLocalUrl(null, "/assets/audio/VO_55.m4a").then(() => {
+          playByLocalUrl(null, "/assets/audio/VO_56.m4a").then(() => {
+            playByLocalUrl(null, "/assets/audio/VO_57.m4a").then(() => {
+              playByLocalUrl(null, "/assets/audio/VO_58.m4a").then(() => {
+                this.voiceJobDone = true;
+              });
+            });
+          });
         });
         return;
       }
 
-      if (this.voiceJobDone && this.aniJobDone) {
-        this.ani03("a")
-          .then(() => {
-            return this.ani03("b");
-          })
-          .then(() => {
-            return this.ani03("c");
-          })
-          .then(() => {
-            return this.ani03("d");
-          })
-          .then(() => {
-            return this.ani03("e");
-          })
-          .then(() => {
-            return this.ani03("f");
-          })
-          .then(() => {
-            return this.ani03("g");
-          })
-          .then(() => {
-            this.A_GisDone = true;
-          });
-        return;
-      }
-
-      if (this.A_GisDone) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 8);
+      if (this.aniJobDone && this.voiceJobDone) {
+        playByLocalUrl(null, "/assets/audio/VO_59.m4a").then(() => {
+          this.$root.eventHub.$emit("pageFinishedEvent", 9);
+        });
         return;
       }
     },
@@ -129,44 +114,40 @@ export default {
     // 1s
     ani01() {
       return new Promise(resolve => {
-        $("#e00")
-          .css({
-            "animation-duration": "1s",
-            "animation-delay": 0
-          })
-          .addClass("fadeOut")
-          .on("animationend", () => {
-            resolve();
-          });
+        $("#e00").css({
+          "animation-duration": "1s",
+          "animation-delay": 0,
+          "margin-top": resize(100),
+          transition: "margin-top 0.5s "
+        });
+        setTimeout(() => {
+          resolve();
+        }, 500);
       });
     },
-    // 2.4s
+    // 展示两张图片
     ani02() {
       return new Promise(resolve => {
-        let i = 0;
-        _.forEach(this.lettersPos, (value, key) => {
-          setTimeout(() => {
-            this.letters[key] = this.zoomInLetter(key, value);
-            this.letters[key].addClass("animated fadeIn ani002");
-            this.letters[key].node.addEventListener("animationend", () => {
-              if (key === "g") {
+        $("#e01")
+          .show()
+          .css({
+            "animation-duration": "2s",
+            "animation-delay": 0
+          })
+          .addClass("slideInUp")
+          .on("animationend", () => {
+            $("#e02")
+              .show()
+              .css({
+                "animation-duration": "2s",
+                "animation-delay": 0
+              })
+              .addClass("slideInUp")
+              .on("animationend", () => {
+                this.aniJobDone = true;
                 resolve();
-              }
-              this.letters[key].attr({ class: "" });
-            });
-          }, i * 300);
-          i++;
-        });
-      });
-    },
-    // 每个字母间隔3秒，分别开始抖动并同步发字母音
-    ani03(letter) {
-      return new Promise(resolve => {
-        this.letters[letter].addClass("animated shake infinite");
-        playByLocalUrl(null, this.letterVoices[letter][2]).then(() => {
-          this.letters[letter].attr({ class: "" });
-          resolve();
-        });
+              });
+          });
       });
     },
     //------------------------sub function
@@ -193,7 +174,7 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/mixin.scss";
 
-.P09 {
+.P08 {
   #e00 {
     margin: 0;
     color: #fff;
@@ -203,17 +184,31 @@ export default {
     @include px2rem(font-size, 100);
     @include px2rem(margin-top, 312);
   }
-  #e001 {
-    width: 100%;
-    height: 100%;
+
+  .pic-wrap-01 {
+    display: none;
+    position: absolute;
+    @include px2rem(left, 104);
+    @include px2rem(top, 245);
+    @include px2rem(width, 542);
+    @include px2rem(height, 385);
+    img {
+      display: block;
+      width: 100%;
+    }
   }
-  .ani002 {
-    animation-duration: 1s;
-    animation-delay: 0;
-  }
-  .ani003 {
-    animation-duration: 3s;
-    animation-delay: 0;
+
+  .pic-wrap-02 {
+    display: none;
+    position: absolute;
+    @include px2rem(left, 646);
+    @include px2rem(top, 245);
+    @include px2rem(width, 552);
+    @include px2rem(height, 385);
+    img {
+      display: block;
+      width: 100%;
+    }
   }
 }
 </style>
