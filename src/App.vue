@@ -50,15 +50,6 @@ export default {
     clickDesk() {
       this.$root.eventHub.$emit("clickDeskEvent");
     }
-    // selectScenes(index, data) {
-    //   // console.log(data);
-    //   this.currentScene = index;
-    //   if (index === 1) {
-    //     this.$root.eventHub.$emit("compareLettersEvent", data);
-    //   } else if (index === 2) {
-    //     this.$root.eventHub.$emit("startGameEvent", data);
-    //   }
-    // }
   }
 };
 </script>

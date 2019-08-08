@@ -221,10 +221,8 @@ export default {
               1500,
               window.mina.linear,
               () => {
-                this.letters[letter].removeClass("animated shake letterA");
-                // this.letters["a"].node.addEventListener("animationend", () => {
+                this.letters[letter].attr({ class: "" });
                 resolve();
-                // });
               }
             );
           }
@@ -306,9 +304,7 @@ export default {
       return new Promise(resolve => {
         this.letters[letter].addClass("animated shake slow");
         playByLocalUrl(null, this.letterVoices[letter][2]).then(() => {
-          setTimeout(() => {
-            this.letters[letter].removeClass("animated shake slow");
-          }, 1000);
+          this.letters[letter].attr({ class: "" });
           resolve();
         });
       });

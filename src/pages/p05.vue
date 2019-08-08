@@ -154,10 +154,8 @@ export default {
                   }
                 }
                 if (this.attr("data-text").toLowerCase() === arr[1]) {
+                  this.attr({ class: "textSize web-font" });
                   this.addClass("animated shake fast");
-                  setTimeout(() => {
-                    this.removeClass("animated shake fast");
-                  }, 1000);
                   playByLocalUrl(null, that.letterVoices[arr[1]][0]);
                 }
               });
@@ -240,14 +238,12 @@ export default {
                 .attr("data-text")
                 .toLowerCase() === targetLetter
             ) {
+              this.gameMitrix[outerIndex][innerIndex].attr({
+                class: "textSize web-font"
+              });
               this.gameMitrix[outerIndex][innerIndex].addClass(
                 "animated flash fast"
               );
-              setTimeout(() => {
-                this.gameMitrix[outerIndex][innerIndex].removeClass(
-                  "animated flash fast"
-                );
-              }, 1000);
             }
           });
         });

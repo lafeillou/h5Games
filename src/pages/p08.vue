@@ -48,22 +48,22 @@ export default {
       // console.log("clickDeskEvent");
 
       if (!this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
+        playByLocalUrl(null, "/assets/audio/VO_47.m4a").then(() => {
           this.voiceJobDone = true;
         });
         return;
       }
 
       if (this.voiceJobDone && this.aniJobDone) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 8);
+        // this.$root.eventHub.$emit("pageFinishedEvent", 8);
+        this.ani03("a");
         return;
       }
     },
     // -----------------------frames function
     // 4s
     ani00() {
-      // eslint-disable-next-line
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         $("#e00")
           .addClass("fadeIn")
           .on("animationend", () => {
@@ -85,7 +85,7 @@ export default {
           });
       });
     },
-    // 8s
+    // 2.4s
     ani02() {
       return new Promise(resolve => {
         let i = 0;
@@ -97,13 +97,17 @@ export default {
               if (key === "g") {
                 resolve();
               }
+              this.letters[key].attr({ class: "" });
             });
-          }, i * 500);
+          }, i * 300);
           i++;
         });
       });
     },
-
+    // 每个字母间隔3秒，分别开始抖动并同步发字母音
+    ani03(letter) {
+      this.letters[letter].addClass("animated shake ani003");
+    },
     //------------------------sub function
     zoomInLetter(key, value) {
       this.step = 0;
@@ -144,6 +148,10 @@ export default {
   }
   .ani002 {
     animation-duration: 1s;
+    animation-delay: 0;
+  }
+  .ani003 {
+    animation-duration: 3s;
     animation-delay: 0;
   }
 }
