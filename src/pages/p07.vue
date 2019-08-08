@@ -1,5 +1,5 @@
 <template>
-  <div class="P P03">
+  <div class="P P07">
     <!-- {{firstWin}}-{{secondWin}}-{{ gaming}} -->
     <svg id="e001" />
   </div>
@@ -76,33 +76,33 @@ export default {
       gaming: false,
       lettersPos: lettersPos,
       gameMitrixTemplate: [
-        ["a", "b", "b", "b"],
-        ["b", "a", "b", "a"],
-        ["a", "a", "b", "a"],
-        ["b", "b", "a", "b"]
+        ["e", "f", "f", "f"],
+        ["f", "e", "f", "e"],
+        ["e", "e", "f", "e"],
+        ["f", "f", "e", "f"]
       ],
       gameMitrix: [new Array(4), new Array(4), new Array(4), new Array(4)]
     };
   },
   mounted() {
     this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
-    this.ani00(["a", "b"]);
+    this.ani00(["e", "f"]);
   },
   methods: {
     handleClickDesk() {
       // console.log("clickDeskEvent");
       if (!this.firstWin && !this.secondWin) {
-        this.ani00(["a", "b"]);
+        this.ani00(["e", "f"]);
         return;
       }
 
       if (this.firstWin && !this.secondWin) {
-        this.ani00(["b", "a"]);
+        this.ani00(["f", "e"]);
         return;
       }
 
       if (this.firstWin && this.secondWin) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 3);
+        this.$root.eventHub.$emit("pageFinishedEvent", 7);
       }
     },
     // -----------------------frames function
@@ -198,12 +198,12 @@ export default {
     initMitrix(arr) {
       _.forEach(this.gameMitrixTemplate, (outer, outerIndex) => {
         _.forEach(outer, (inner, innerIndex) => {
-          if (this.gameMitrixTemplate[outerIndex][innerIndex] === "a") {
+          if (this.gameMitrixTemplate[outerIndex][innerIndex] === "e") {
             this.gameMitrixTemplate[outerIndex][
               innerIndex
             ] = arr[0].toUpperCase();
           }
-          if (this.gameMitrixTemplate[outerIndex][innerIndex] === "b") {
+          if (this.gameMitrixTemplate[outerIndex][innerIndex] === "f") {
             this.gameMitrixTemplate[outerIndex][
               innerIndex
             ] = arr[1].toUpperCase();
@@ -269,7 +269,7 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/mixin.scss";
 
-.P03 {
+.P07 {
   #e001 {
     width: 100%;
     height: 100%;
