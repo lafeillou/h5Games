@@ -29,7 +29,8 @@
     "normalize.css": "^8.0.1",
     "sass-loader": "^7.1.0",
     "snapsvg": "^0.5.1",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "vue2-hammer": "^2.1.2"
   },
   "eslintConfig": {
     "root": true,

@@ -1,5 +1,5 @@
 <template>
-  <div class="P P01">
+  <div class="P P01" v-hammer:tap="onTap">
     <div class="web-font animated" id="e00">Level 1 Week 1 Lesson 1</div>
     <svg id="e001" />
   </div>
@@ -24,13 +24,15 @@ export default {
         f: ["/assets/audio/VO_32.m4a", "/assets/audio/VO_33.m4a"],
         g: ["/assets/audio/VO_34.m4a", "/assets/audio/VO_35.m4a"]
       },
-      voiceJobDone: false,
-      aniJobDone: false,
+      voicePlaying: false,
+      animationPlaying: false,
       lettersPos: lettersPos
     };
   },
   mounted() {
-    this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+    // this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+    // 自动触发一次
+    // 播放动画
     this.ani00()
       .then(() => {
         return this.ani01();
@@ -40,28 +42,28 @@ export default {
         return this.ani02();
       })
       .then(() => {
-        this.aniJobDone = true;
+        // this.aniJobDone = true;
       });
   },
   methods: {
-    handleClickDesk() {
-      // console.log("clickDeskEvent");
-
-      if (!this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
-          this.voiceJobDone = true;
-        });
+    onTap() {
+      // alert(1);
+      if (this.voicePlaying || this.animationPlaying) {
         return;
       }
+      // 播放声音
+      this.voicePlaying = true;
 
-      if (this.voiceJobDone && this.aniJobDone) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 1);
-        return;
-      }
+      playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
+        this.voicePlaying = false;
+      });
+      window.Snap("#e001").clear();
+      this.ani02().then(() => {});
     },
     // -----------------------frames function
     // 4s
     ani00() {
+      this.animationPlaying = true;
       // eslint-disable-next-line
       return new Promise((resolve, reject) => {
         $("#e00")
@@ -82,11 +84,17 @@ export default {
           .addClass("fadeOut")
           .on("animationend", () => {
             resolve();
+            this.animationPlaying = false;
           });
       });
     },
     // 8s
     ani02() {
+      this.animationPlaying = true;
+      this.voicePlaying = true;
+      playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
+        this.voicePlaying = false;
+      });
       return new Promise(resolve => {
         let i = 0;
         _.forEach(this.lettersPos, (value, key) => {
@@ -95,8 +103,10 @@ export default {
             this.letters[key].addClass("animated bounceIn ani002");
             this.letters[key].node.addEventListener("animationend", () => {
               if (key === "g") {
+                this.animationPlaying = false;
                 resolve();
               }
+              this.letters[key].attr({ class: "" });
             });
           }, i * 1000);
           i++;

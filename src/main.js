@@ -10,6 +10,8 @@ import "./assets/sass/main.scss";
 // 新方案推荐阅读 https://www.w3cplus.com/mobile/vw-layout-in-vue.html
 import "lib-flexible";
 const snap = require(`imports-loader?this=>window,fix=>module.exports=0!snapsvg/dist/snap.svg.js`);
+import { VueHammer } from "vue2-hammer";
+Vue.use(VueHammer);
 
 Vue.config.productionTip = false;
 new Vue({

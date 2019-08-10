@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @click="clickDesk">
+  <div id="app" v-hammer:swipe="onSwipe">
     <P01 v-if="currentPage === 1"></P01>
     <P02 v-if="currentPage === 2"></P02>
     <P03 v-if="currentPage === 3"></P03>
@@ -48,47 +48,55 @@ export default {
     P10
   },
   mounted() {
-    this.$root.eventHub.$on("pageFinishedEvent", from => {
-      // 翻到下一页
-      let to = from + 1;
-      this.currentPage = to;
-    });
+    // this.$root.eventHub.$on("pageFinishedEvent", from => {
+    //   // 翻到下一页
+    //   let to = from + 1;
+    //   this.currentPage = to;
+    // });
     window.addEventListener("resize", this.renderResize, false);
-    this.$nextTick(() => {
-      let $app = $("#app");
-      let deviceW = document.documentElement.clientWidth;
-      let radio = deviceW / 1334;
-      $("html").css({ "font-size": 133.4 * radio });
-      $app.width(deviceW);
-      $app.height((deviceW * 750) / 1334);
-      $app.fadeIn(500);
-    });
+    let $app = $("#app");
+    let deviceW = document.documentElement.clientWidth;
+    let radio = deviceW / 1334;
+    $("html").css({ "font-size": 133.4 * radio });
+    $app.width(deviceW);
+    $app.height((deviceW * 750) / 1334);
+    $app.fadeIn(500);
   },
   beforeDestroy() {
     // 移除监听
     window.removeEventListener("resize", this.renderResize, false);
   },
   methods: {
+    onSwipe(event) {
+      // 从右向左滑动
+      if (event.direction === 2) {
+        if (this.currentPage < 10) {
+          this.currentPage++;
+        } else {
+          this.currentPage = 1;
+        }
+        // 从左向右滑动
+      } else if (event.direction === 4) {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+        }
+      }
+    },
     // 判断是否横屏
     renderResize() {
       this.$nextTick(() => {
         // 判断横竖屏
-        let width = document.documentElement.clientWidth;
-        let height = document.documentElement.clientHeight;
-        if (width > height) {
-          // 横屏下重新渲染
-          console.log("横屏！");
-        } else {
-          var r = confirm("建议在手机横屏状态下浏览,使用pc用户请忽略本提示！!");
-          if (r == true) {
-            location.reload();
-          }
-        }
+        // let width = document.documentElement.clientWidth;
+        // let height = document.documentElement.clientHeight;
+        // if (width > height) {
+        //   location.reload();
+        // }
+        location.reload();
       });
-    },
-    clickDesk() {
-      this.$root.eventHub.$emit("clickDeskEvent");
     }
+    // clickDesk() {
+    //   this.$root.eventHub.$emit("clickDeskEvent");
+    // }
   }
 };
 </script>
