@@ -1,5 +1,5 @@
 <template>
-  <div class="P P03">
+  <div class="P P03" v-hammer:tap="onTap">
     <!-- {{firstWin}}-{{secondWin}}-{{ gaming}} -->
     <svg id="e001" />
   </div>
@@ -89,8 +89,7 @@ export default {
     this.ani00(["a", "b"]);
   },
   methods: {
-    handleClickDesk() {
-      // console.log("clickDeskEvent");
+    onTap() {
       if (!this.firstWin && !this.secondWin) {
         this.ani00(["a", "b"]);
         return;
@@ -102,7 +101,7 @@ export default {
       }
 
       if (this.firstWin && this.secondWin) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 3);
+        this.$root.eventHub.$emit("goToPage", 4);
       }
     },
     // -----------------------frames function
@@ -146,6 +145,7 @@ export default {
                 // console.log(e);
                 e.stopPropagation();
                 if (this.attr("data-text").toLowerCase() === arr[0]) {
+                  this.attr({ class: "textSize web-font" });
                   this.attr({ fill: "orange", "data-select": true });
                   if (!that.firstWin) {
                     that.checkWin(7, arr[0]);
@@ -156,7 +156,10 @@ export default {
                 if (this.attr("data-text").toLowerCase() === arr[1]) {
                   this.attr({ class: "textSize web-font" });
                   this.addClass("animated shake fast");
-                  playByLocalUrl(null, that.letterVoices[arr[1]][0]);
+                  playByLocalUrl(null, that.letterVoices[arr[1]][3]);
+                  setTimeout(() => {
+                    this.removeClass("animated shake fast");
+                  }, 1000);
                 }
               });
           });

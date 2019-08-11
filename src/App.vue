@@ -48,11 +48,9 @@ export default {
     P10
   },
   mounted() {
-    // this.$root.eventHub.$on("pageFinishedEvent", from => {
-    //   // 翻到下一页
-    //   let to = from + 1;
-    //   this.currentPage = to;
-    // });
+    this.$root.eventHub.$on("goToPage", to => {
+      this.currentPage = to;
+    });
     window.addEventListener("resize", this.renderResize, false);
     let $app = $("#app");
     let deviceW = document.documentElement.clientWidth;

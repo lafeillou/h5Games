@@ -1,5 +1,5 @@
 <template>
-  <div class="P P06">
+  <div class="P P06" v-hammer:tap="onTap">
     <svg id="e002" />
   </div>
 </template>
@@ -75,8 +75,7 @@ export default {
     //   });
   },
   methods: {
-    handleClickDesk() {
-      console.log("clickDeskEvent");
+    onTap() {
       if (!this.isADone) {
         // 显示字母E
         this.ani01("e")
@@ -167,7 +166,7 @@ export default {
         return;
       }
 
-      this.$root.eventHub.$emit("pageFinishedEvent", 6);
+      this.$root.eventHub.$emit("goToPage", 7);
     },
     // -----------------------frames function
     // 8s

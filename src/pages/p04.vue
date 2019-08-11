@@ -1,5 +1,5 @@
 <template>
-  <div class="P P04">
+  <div class="P P04" v-hammer:tap="onTap">
     <svg id="e002" />
   </div>
 </template>
@@ -9,7 +9,8 @@
 // eslint-disable-next-line
 import { resize, playByLocalUrl, lettersPos } from "@/utils/utils.js";
 import _ from "lodash";
-
+// import Hammer from "hammerjs";
+// console.log(Hammer);
 export default {
   data() {
     return {
@@ -63,25 +64,24 @@ export default {
     };
   },
   mounted() {
-    this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
     this.ani00();
-    //   .then(() => {
-    //     return this.ani01();
-    //   })
-    //   .then(() => {
-    //     return this.ani02();
-    //   });
   },
   methods: {
-    handleClickDesk() {
-      console.log("clickDeskEvent");
+    onTap() {
       if (!this.isADone) {
-        // 显示字母C
+        // debugger;
         this.ani01("c")
           .then(() => {
             return this.ani02("c");
           })
           .then(() => {
+            // 不会自动播放
+            // return playByLocalUrl(null, this.letterVoices["a"][1]);
+            // return new Promise(resolve => {
+            //   setTimeout(() => {
+            //     resolve();
+            //   }, 3000);
+            // });
             return playByLocalUrl(null, this.letterVoices["c"][1]);
           })
           .then(() => {
@@ -94,12 +94,13 @@ export default {
       }
 
       if (!this.isBDone) {
-        // 显示字母D
         this.ani01("d")
           .then(() => {
             return this.ani02("d");
           })
           .then(() => {
+            // 不会自动播放
+            // return playByLocalUrl(null, this.letterVoices["a"][1]);
             return playByLocalUrl(null, this.letterVoices["d"][1]);
           })
           .then(() => {
@@ -110,20 +111,17 @@ export default {
           });
         return;
       }
-      // 同时显示AB两个字母
+
+      //   // 同时显示AB两个字母
       if (this.isADone && this.isBDone && !this.isABDone) {
-        this.ani04("c-d")
-          .then(() => {
-            return playByLocalUrl(null, "/assets/audio/VO_06.m4a");
-          })
-          .then(() => {
-            this.isABDone = true;
-          });
+        playByLocalUrl(null, "/assets/audio/VO_06.m4a");
+        this.ani04("c-d").then(() => {
+          this.isABDone = true;
+        });
         return;
       }
 
       if (this.isABDone && !this.pointToADone) {
-        // alert("a");
         this.ani05("c").then(() => {
           this.pointToADone = true;
         });
@@ -131,13 +129,12 @@ export default {
       }
 
       if (this.isABDone && !this.pointToBDone) {
-        // alert("a");
         this.ani05("d").then(() => {
           this.pointToBDone = true;
         });
         return;
       }
-      this.$root.eventHub.$emit("pageFinishedEvent", 4);
+      this.$root.eventHub.$emit("goToPage", 5);
     },
     // -----------------------frames function
     // 8s
@@ -146,16 +143,37 @@ export default {
       return new Promise(resolve => {
         _.forEach(this.lettersPos, (value, key) => {
           this.letters[key] = this.zoomInLetter(key, value);
+          this.letters[key].attr({ id: key });
+          // document.getElementById(key).onclick = ev => {
+          //   alert(ev);
+          // };
+          this.letters[key].click(() => {
+            // alert(key);
+            this.ani01(key);
+            // 如下代码也不会自动播放
+            // setTimeout(() => {
+            //   playByLocalUrl(null, this.letterVoices[key][1]);
+            // }, 5000);
+          });
         });
+        // let hammer = new Hammer(document.getElementById("a"));
+        // console.log(hammer);
+        // hammer.ontap = function(ev) {
+        //   alert(ev);
+        // };
         resolve();
       });
     },
     ani01(letter) {
       return new Promise(resolve => {
+        _.forEach(this.letters, value => {
+          value.attr({ class: "" });
+        });
         this.letters[letter].addClass("animated shake letterA");
         // debugger;
         playByLocalUrl(null, this.letterVoices[letter][0]);
         this.letters[letter].node.addEventListener("animationend", () => {
+          this.letters[letter].attr({ class: "" });
           resolve();
         });
       });

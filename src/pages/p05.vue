@@ -1,5 +1,5 @@
 <template>
-  <div class="P P05">
+  <div class="P P05" v-hammer:tap="onTap">
     <!-- {{firstWin}}-{{secondWin}}-{{ gaming}} -->
     <svg id="e001" />
   </div>
@@ -89,8 +89,23 @@ export default {
     this.ani00(["c", "d"]);
   },
   methods: {
-    handleClickDesk() {
-      // console.log("clickDeskEvent");
+    // handleClickDesk() {
+    //   // console.log("clickDeskEvent");
+    //   if (!this.firstWin && !this.secondWin) {
+    //     this.ani00(["c", "d"]);
+    //     return;
+    //   }
+
+    //   if (this.firstWin && !this.secondWin) {
+    //     this.ani00(["d", "c"]);
+    //     return;
+    //   }
+
+    //   if (this.firstWin && this.secondWin) {
+    //     this.$root.eventHub.$emit("pageFinishedEvent", 5);
+    //   }
+    // },
+    onTap() {
       if (!this.firstWin && !this.secondWin) {
         this.ani00(["c", "d"]);
         return;
@@ -102,7 +117,7 @@ export default {
       }
 
       if (this.firstWin && this.secondWin) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 5);
+        this.$root.eventHub.$emit("goToPage", 6);
       }
     },
     // -----------------------frames function
@@ -156,7 +171,7 @@ export default {
                 if (this.attr("data-text").toLowerCase() === arr[1]) {
                   this.attr({ class: "textSize web-font" });
                   this.addClass("animated shake fast");
-                  playByLocalUrl(null, that.letterVoices[arr[1]][0]);
+                  playByLocalUrl(null, that.letterVoices[arr[1]][3]);
                 }
               });
           });

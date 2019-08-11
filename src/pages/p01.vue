@@ -58,8 +58,12 @@ export default {
         this.voicePlaying = false;
       });
       window.Snap("#e001").clear();
-      this.ani02().then(() => {});
+      this.ani02().then(() => {
+        this.$root.eventHub.$emit("goToPage", 2);
+      });
     },
+
+    
     // -----------------------frames function
     // 4s
     ani00() {

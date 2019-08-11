@@ -74,14 +74,15 @@ export default {
           .then(() => {
             return this.ani02("a");
           })
+
           .then(() => {
             // 不会自动播放
-            // return playByLocalUrl(null, this.letterVoices["a"][1]);
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-              }, 3000);
-            });
+            return playByLocalUrl(null, this.letterVoices["a"][1]);
+            // return new Promise(resolve => {
+            //   setTimeout(() => {
+            //     resolve();
+            //   }, 3000);
+            // });
           })
           .then(() => {
             return this.ani03("a");
@@ -89,6 +90,7 @@ export default {
           .then(() => {
             this.isADone = true;
           });
+        return;
       }
 
       if (!this.isBDone) {
@@ -98,12 +100,12 @@ export default {
           })
           .then(() => {
             // 不会自动播放
-            // return playByLocalUrl(null, this.letterVoices["a"][1]);
-            return new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-              }, 3000);
-            });
+            return playByLocalUrl(null, this.letterVoices["b"][1]);
+            // return new Promise(resolve => {
+            //   setTimeout(() => {
+            //     resolve();
+            //   }, 3000);
+            // });
           })
           .then(() => {
             return this.ani03("b");
@@ -111,6 +113,7 @@ export default {
           .then(() => {
             this.isBDone = true;
           });
+        return;
       }
 
       //   // 同时显示AB两个字母
@@ -123,7 +126,6 @@ export default {
       }
 
       if (this.isABDone && !this.pointToADone) {
-        // alert("a");
         this.ani05("a").then(() => {
           this.pointToADone = true;
         });
@@ -131,12 +133,13 @@ export default {
       }
 
       if (this.isABDone && !this.pointToBDone) {
-        // alert("a");
         this.ani05("b").then(() => {
           this.pointToBDone = true;
         });
         return;
       }
+
+      this.$root.eventHub.$emit("goToPage", 3);
     },
     // -----------------------frames function
     // 8s
@@ -323,7 +326,7 @@ export default {
     ani05(letter) {
       return new Promise(resolve => {
         this.letters[letter].addClass("animated shake slow");
-        playByLocalUrl(null, this.letterVoices[letter][2]).then(() => {
+        playByLocalUrl(null, this.letterVoices[letter][1]).then(() => {
           this.letters[letter].attr({ class: "" });
           resolve();
         });
