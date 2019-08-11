@@ -1,5 +1,5 @@
 <template>
-  <div class="P P10">
+  <div class="P P10" v-hammer:tap="onTap">
     <div class="web-font animated" id="e00">Playdough letters</div>
     <svg id="e001" />
   </div>
@@ -60,7 +60,7 @@ export default {
     };
   },
   mounted() {
-    this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+    // this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
     // 启动动画
     this.ani00()
       .then(() => {
@@ -71,7 +71,7 @@ export default {
       });
   },
   methods: {
-    handleClickDesk() {
+    onTap() {
       if (!this.voiceJobDone) {
         playByLocalUrl(null, "/assets/audio/VO_60.m4a")
           .then(() => {
@@ -88,6 +88,23 @@ export default {
         this.$root.eventHub.$emit("pageFinishedEvent", 1);
       }
     },
+    // handleClickDesk() {
+    //   if (!this.voiceJobDone) {
+    //     playByLocalUrl(null, "/assets/audio/VO_60.m4a")
+    //       .then(() => {
+    //         return playByLocalUrl(null, "/assets/audio/VO_61.m4a");
+    //       })
+    //       .then(() => {
+    //         this.voiceJobDone = true;
+    //       });
+    //     return;
+    //   }
+
+    //   if (this.voiceJobDone && this.aniJobDone) {
+    //     // 返回首页
+    //     this.$root.eventHub.$emit("pageFinishedEvent", 1);
+    //   }
+    // },
     // -----------------------frames function
     // 4s
     ani00() {

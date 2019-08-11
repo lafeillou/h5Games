@@ -1,5 +1,5 @@
 <template>
-  <div class="P P09">
+  <div class="P P08" v-hammer:tap="onTap">
     <div class="web-font animated" id="e00">Let's Read</div>
     <svg id="e001" />
   </div>
@@ -74,9 +74,7 @@ export default {
       });
   },
   methods: {
-    handleClickDesk() {
-      // console.log("clickDeskEvent");
-
+    onTap() {
       if (!this.voiceJobDone) {
         playByLocalUrl(null, "/assets/audio/VO_47.m4a").then(() => {
           this.voiceJobDone = true;
@@ -111,7 +109,7 @@ export default {
       }
 
       if (this.A_GisDone) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 8);
+        this.$root.eventHub.$emit("goToPage", 8);
         return;
       }
     },
@@ -154,6 +152,9 @@ export default {
               }
               this.letters[key].attr({ class: "" });
             });
+            this.letters[key].click(() => {
+              alert(1);
+            });
           }, i * 300);
           i++;
         });
@@ -193,7 +194,7 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/mixin.scss";
 
-.P09 {
+.P08 {
   #e00 {
     margin: 0;
     color: #fff;

@@ -1,5 +1,5 @@
 <template>
-  <div class="P P07">
+  <div class="P P07" v-hammer:tap="onTap">
     <!-- {{firstWin}}-{{secondWin}}-{{ gaming}} -->
     <svg id="e001" />
   </div>
@@ -89,8 +89,7 @@ export default {
     this.ani00(["e", "f"]);
   },
   methods: {
-    handleClickDesk() {
-      // console.log("clickDeskEvent");
+    onTap() {
       if (!this.firstWin && !this.secondWin) {
         this.ani00(["e", "f"]);
         return;
@@ -102,7 +101,7 @@ export default {
       }
 
       if (this.firstWin && this.secondWin) {
-        this.$root.eventHub.$emit("pageFinishedEvent", 7);
+        this.$root.eventHub.$emit("goToPage", 8);
       }
     },
     // -----------------------frames function

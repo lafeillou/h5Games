@@ -1,5 +1,5 @@
 <template>
-  <div class="P P08">
+  <div class="P P09" v-hammer:tap="onTap">
     <div class="web-font animated" id="e00">Playdough letters</div>
     <div class="pic-wrap-01 animated" id="e01">
       <img src="/assets/images/alphabet-games-01.png" />
@@ -65,7 +65,7 @@ export default {
     };
   },
   mounted() {
-    this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
+    // this.$root.eventHub.$on("clickDeskEvent", this.handleClickDesk);
 
     this.ani00()
       .then(() => {
@@ -79,7 +79,7 @@ export default {
       });
   },
   methods: {
-    handleClickDesk() {
+    onTap() {
       if (!this.voiceJobDone) {
         playByLocalUrl(null, "/assets/audio/VO_55.m4a").then(() => {
           playByLocalUrl(null, "/assets/audio/VO_56.m4a").then(() => {
@@ -95,7 +95,7 @@ export default {
 
       if (this.aniJobDone && this.voiceJobDone) {
         playByLocalUrl(null, "/assets/audio/VO_59.m4a").then(() => {
-          this.$root.eventHub.$emit("pageFinishedEvent", 9);
+          this.$root.eventHub.$emit("goToPage", 10);
         });
         return;
       }
@@ -174,7 +174,7 @@ export default {
 <style lang="scss">
 @import "@/assets/sass/mixin.scss";
 
-.P08 {
+.P09 {
   #e00 {
     margin: 0;
     color: #fff;
