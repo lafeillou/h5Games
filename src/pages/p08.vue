@@ -152,9 +152,9 @@ export default {
               }
               this.letters[key].attr({ class: "" });
             });
-            this.letters[key].click(() => {
-              alert(1);
-            });
+            // this.letters[key].click(() => {
+            //   alert(1);
+            // });
           }, i * 300);
           i++;
         });

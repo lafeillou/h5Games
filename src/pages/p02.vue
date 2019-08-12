@@ -52,6 +52,7 @@ export default {
           "/assets/audio/VO_39.m4a"
         ]
       },
+      canTap: true,
       // 节点
       voiceJobDone: false,
       aniJobDone: false,
@@ -64,10 +65,56 @@ export default {
     };
   },
   mounted() {
+    // this.canTap = false;
     this.ani00();
+    // .then(() => {
+    //   return this.ani01("a");
+    // })
+    // .then(() => {
+    //   return this.ani02("a");
+    // })
+    // .then(() => {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       this.ani03("a").then(() => {
+    //         resolve();
+    //       });
+    //     }, 2000);
+    //   });
+    // })
+    // .then(() => {
+    //   return this.ani01("b");
+    // })
+    // .then(() => {
+    //   return this.ani02("b");
+    // })
+    // .then(() => {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => {
+    //       this.ani03("b").then(() => {
+    //         resolve();
+    //       });
+    //     }, 2000);
+    //   });
+    // })
+    // .then(() => {
+    //   return this.ani04("a-b");
+    // })
+    // .then(() => {
+    //   return this.ani05("a");
+    // })
+    // .then(() => {
+    //   return this.ani05("b");
+    // })
+    // .then(() => {
+    //   this.canTap = true;
+    // });
   },
   methods: {
     onTap() {
+      if (!this.canTap) {
+        return;
+      }
       if (!this.isADone) {
         // debugger;
         this.ani01("a")
@@ -326,7 +373,7 @@ export default {
     ani05(letter) {
       return new Promise(resolve => {
         this.letters[letter].addClass("animated shake slow");
-        playByLocalUrl(null, this.letterVoices[letter][1]).then(() => {
+        playByLocalUrl(null, this.letterVoices[letter][2]).then(() => {
           this.letters[letter].attr({ class: "" });
           resolve();
         });
