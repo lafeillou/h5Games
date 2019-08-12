@@ -61,7 +61,22 @@ export default {
       isABDone: false,
       pointToADone: false,
       pointToBDone: false,
-      lettersPos: lettersPos
+      lettersPos: {
+        a: {
+          url: "/assets/images/letters/a.png",
+          w: 173,
+          h: 173,
+          x: 276,
+          y: 149
+        },
+        b: {
+          url: "/assets/images/letters/b.png",
+          w: 173,
+          h: 173,
+          x: 474,
+          y: 149
+        }
+      }
     };
   },
   mounted() {
