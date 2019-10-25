@@ -16,39 +16,39 @@ export default {
       letters: {},
       letterVoices: {
         a: [
-          "/assets/audio/VO_02.m4a",
-          "/assets/audio/VO_03.m4a",
-          "/assets/audio/VO_07.m4a"
+          "./assets/audio/VO_02.m4a",
+          "./assets/audio/VO_03.m4a",
+          "./assets/audio/VO_07.m4a"
         ],
         b: [
-          "/assets/audio/VO_04.m4a",
-          "/assets/audio/VO_05.m4a",
-          "/assets/audio/VO_08.m4a"
+          "./assets/audio/VO_04.m4a",
+          "./assets/audio/VO_05.m4a",
+          "./assets/audio/VO_08.m4a"
         ],
         c: [
-          "/assets/audio/VO_16.m4a",
-          "/assets/audio/VO_17.m4a",
-          "/assets/audio/VO_21.m4a"
+          "./assets/audio/VO_16.m4a",
+          "./assets/audio/VO_17.m4a",
+          "./assets/audio/VO_21.m4a"
         ],
         d: [
-          "/assets/audio/VO_18.m4a",
-          "/assets/audio/VO_19.m4a",
-          "/assets/audio/VO_22.m4a"
+          "./assets/audio/VO_18.m4a",
+          "./assets/audio/VO_19.m4a",
+          "./assets/audio/VO_22.m4a"
         ],
         e: [
-          "/assets/audio/VO_30.m4a",
-          "/assets/audio/VO_31.m4a",
-          "/assets/audio/VO_37.m4a"
+          "./assets/audio/VO_30.m4a",
+          "./assets/audio/VO_31.m4a",
+          "./assets/audio/VO_37.m4a"
         ],
         f: [
-          "/assets/audio/VO_32.m4a",
-          "/assets/audio/VO_33.m4a",
-          "/assets/audio/VO_38.m4a"
+          "./assets/audio/VO_32.m4a",
+          "./assets/audio/VO_33.m4a",
+          "./assets/audio/VO_38.m4a"
         ],
         g: [
-          "/assets/audio/VO_34.m4a",
-          "/assets/audio/VO_35.m4a",
-          "/assets/audio/VO_39.m4a"
+          "./assets/audio/VO_34.m4a",
+          "./assets/audio/VO_35.m4a",
+          "./assets/audio/VO_39.m4a"
         ]
       },
       // 节点
@@ -63,21 +63,21 @@ export default {
       pointToCDone: false,
       lettersPos: {
         e: {
-          url: "/assets/images/letters/e.png",
+          url: "./assets/images/letters/e.png",
           w: 173,
           h: 173,
           x: 367,
           y: 375
         },
         f: {
-          url: "/assets/images/letters/f.png",
+          url: "./assets/images/letters/f.png",
           w: 173,
           h: 173,
           x: 575,
           y: 375
         },
         g: {
-          url: "/assets/images/letters/g.png",
+          url: "./assets/images/letters/g.png",
           w: 173,
           h: 173,
           x: 800,
@@ -156,7 +156,7 @@ export default {
       if (this.isADone && this.isBDone && this.isCDone && !this.isABCDone) {
         this.ani04("e-f-g")
           .then(() => {
-            return playByLocalUrl(null, "/assets/audio/VO_06.m4a");
+            return playByLocalUrl(null, "./assets/audio/VO_06.m4a");
           })
           .then(() => {
             this.isABCDone = true;
@@ -382,7 +382,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P06 {
   #e002 {

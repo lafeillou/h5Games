@@ -16,13 +16,13 @@ export default {
     return {
       letters: {},
       letterVoices: {
-        a: ["/assets/audio/VO_02.m4a", "/assets/audio/VO_03.m4a"],
-        b: ["/assets/audio/VO_04.m4a", "/assets/audio/VO_05.m4a"],
-        c: ["/assets/audio/VO_16.m4a", "/assets/audio/VO_17.m4a"],
-        d: ["/assets/audio/VO_18.m4a", "/assets/audio/VO_19.m4a"],
-        e: ["/assets/audio/VO_30.m4a", "/assets/audio/VO_31.m4a"],
-        f: ["/assets/audio/VO_32.m4a", "/assets/audio/VO_33.m4a"],
-        g: ["/assets/audio/VO_34.m4a", "/assets/audio/VO_35.m4a"]
+        a: ["./assets/audio/VO_02.m4a", "./assets/audio/VO_03.m4a"],
+        b: ["./assets/audio/VO_04.m4a", "./assets/audio/VO_05.m4a"],
+        c: ["./assets/audio/VO_16.m4a", "/assets/audio/VO_17.m4a"],
+        d: ["/assets/audio/VO_18.m4a", "./assets/audio/VO_19.m4a"],
+        e: ["./assets/audio/VO_30.m4a", "./assets/audio/VO_31.m4a"],
+        f: ["./assets/audio/VO_32.m4a", "/assets/audio/VO_33.m4a"],
+        g: ["./assets/audio/VO_34.m4a", "./assets/audio/VO_35.m4a"]
       },
       voicePlaying: false,
       animationPlaying: false,
@@ -54,7 +54,7 @@ export default {
       // 播放声音
       this.voicePlaying = true;
 
-      playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
+      playByLocalUrl(null, "./assets/audio/VO_01.m4a").then(() => {
         this.voicePlaying = false;
       });
       window.Snap("#e001").clear();
@@ -63,7 +63,6 @@ export default {
       });
     },
 
-    
     // -----------------------frames function
     // 4s
     ani00() {
@@ -96,7 +95,7 @@ export default {
     ani02() {
       this.animationPlaying = true;
       this.voicePlaying = true;
-      playByLocalUrl(null, "/assets/audio/VO_01.m4a").then(() => {
+      playByLocalUrl(null, "./assets/audio/VO_01.m4a").then(() => {
         this.voicePlaying = false;
       });
       return new Promise(resolve => {
@@ -140,7 +139,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P01 {
   #e00 {

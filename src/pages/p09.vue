@@ -2,10 +2,10 @@
   <div class="P P09" v-hammer:tap="onTap">
     <div class="web-font animated" id="e00">Playdough letters</div>
     <div class="pic-wrap-01 animated" id="e01">
-      <img src="/assets/images/alphabet-games-01.png" />
+      <img src="assets/images/alphabet-games-01.png" />
     </div>
     <div class="pic-wrap-02 animated" id="e02">
-      <img src="/assets/images/alphabet-games-02.png" />
+      <img src="assets/images/alphabet-games-02.png" />
     </div>
   </div>
 </template>
@@ -22,39 +22,39 @@ export default {
       letters: {},
       letterVoices: {
         a: [
-          "/assets/audio/VO_02.m4a",
-          "/assets/audio/VO_03.m4a",
-          "/assets/audio/VO_48.m4a"
+          "./assets/audio/VO_02.m4a",
+          "./assets/audio/VO_03.m4a",
+          "./assets/audio/VO_48.m4a"
         ],
         b: [
-          "/assets/audio/VO_04.m4a",
-          "/assets/audio/VO_05.m4a",
-          "/assets/audio/VO_49.m4a"
+          "./assets/audio/VO_04.m4a",
+          "./assets/audio/VO_05.m4a",
+          "./assets/audio/VO_49.m4a"
         ],
         c: [
-          "/assets/audio/VO_16.m4a",
-          "/assets/audio/VO_17.m4a",
-          "/assets/audio/VO_50.m4a"
+          "./assets/audio/VO_16.m4a",
+          "./assets/audio/VO_17.m4a",
+          "./assets/audio/VO_50.m4a"
         ],
         d: [
-          "/assets/audio/VO_18.m4a",
-          "/assets/audio/VO_19.m4a",
-          "/assets/audio/VO_51.m4a"
+          "./assets/audio/VO_18.m4a",
+          "./assets/audio/VO_19.m4a",
+          "./assets/audio/VO_51.m4a"
         ],
         e: [
-          "/assets/audio/VO_30.m4a",
-          "/assets/audio/VO_31.m4a",
-          "/assets/audio/VO_52.m4a"
+          "./assets/audio/VO_30.m4a",
+          "./assets/audio/VO_31.m4a",
+          "./assets/audio/VO_52.m4a"
         ],
         f: [
-          "/assets/audio/VO_32.m4a",
-          "/assets/audio/VO_33.m4a",
-          "/assets/audio/VO_53.m4a"
+          "./assets/audio/VO_32.m4a",
+          "./assets/audio/VO_33.m4a",
+          "./assets/audio/VO_53.m4a"
         ],
         g: [
-          "/assets/audio/VO_34.m4a",
-          "/assets/audio/VO_35.m4a",
-          "/assets/audio/VO_54.m4a"
+          "./assets/audio/VO_34.m4a",
+          "./assets/audio/VO_35.m4a",
+          "./assets/audio/VO_54.m4a"
         ]
       },
       // 节点
@@ -81,10 +81,10 @@ export default {
   methods: {
     onTap() {
       if (!this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_55.m4a").then(() => {
-          playByLocalUrl(null, "/assets/audio/VO_56.m4a").then(() => {
-            playByLocalUrl(null, "/assets/audio/VO_57.m4a").then(() => {
-              playByLocalUrl(null, "/assets/audio/VO_58.m4a").then(() => {
+        playByLocalUrl(null, "./assets/audio/VO_55.m4a").then(() => {
+          playByLocalUrl(null, "./assets/audio/VO_56.m4a").then(() => {
+            playByLocalUrl(null, "./assets/audio/VO_57.m4a").then(() => {
+              playByLocalUrl(null, "./assets/audio/VO_58.m4a").then(() => {
                 this.voiceJobDone = true;
               });
             });
@@ -94,7 +94,7 @@ export default {
       }
 
       if (this.aniJobDone && this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_59.m4a").then(() => {
+        playByLocalUrl(null, "./assets/audio/VO_59.m4a").then(() => {
           this.$root.eventHub.$emit("goToPage", 10);
         });
         return;
@@ -172,7 +172,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P09 {
   #e00 {

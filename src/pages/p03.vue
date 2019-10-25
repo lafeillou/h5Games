@@ -17,51 +17,51 @@ export default {
       letters: {},
       letterVoices: {
         a: [
-          "/assets/audio/VO_02.m4a",
-          "/assets/audio/VO_03.m4a",
-          "/assets/audio/VO_07.m4a",
-          "/assets/audio/VO_14.m4a",
-          "/assets/audio/VO_10.m4a"
+          "./assets/audio/VO_02.m4a",
+          "./assets/audio/VO_03.m4a",
+          "./assets/audio/VO_07.m4a",
+          "./assets/audio/VO_14.m4a",
+          "./assets/audio/VO_10.m4a"
         ],
         b: [
-          "/assets/audio/VO_04.m4a",
-          "/assets/audio/VO_05.m4a",
-          "/assets/audio/VO_08.m4a",
-          "/assets/audio/VO_11.m4a",
-          "/assets/audio/VO_13.m4a"
+          "./assets/audio/VO_04.m4a",
+          "./assets/audio/VO_05.m4a",
+          "./assets/audio/VO_08.m4a",
+          "./assets/audio/VO_11.m4a",
+          "./assets/audio/VO_13.m4a"
         ],
         c: [
-          "/assets/audio/VO_16.m4a",
-          "/assets/audio/VO_17.m4a",
-          "/assets/audio/VO_21.m4a",
-          "/assets/audio/VO_28.m4a",
-          "/assets/audio/VO_24.m4a"
+          "./assets/audio/VO_16.m4a",
+          "./assets/audio/VO_17.m4a",
+          "./assets/audio/VO_21.m4a",
+          "./assets/audio/VO_28.m4a",
+          "./assets/audio/VO_24.m4a"
         ],
         d: [
-          "/assets/audio/VO_18.m4a",
-          "/assets/audio/VO_19.m4a",
-          "/assets/audio/VO_22.m4a",
-          "/assets/audio/VO_25.m4a",
-          "/assets/audio/VO_27.m4a"
+          "./assets/audio/VO_18.m4a",
+          "./assets/audio/VO_19.m4a",
+          "./assets/audio/VO_22.m4a",
+          "./assets/audio/VO_25.m4a",
+          "./assets/audio/VO_27.m4a"
         ],
         e: [
-          "/assets/audio/VO_30.m4a",
-          "/assets/audio/VO_31.m4a",
-          "/assets/audio/VO_37.m4a",
-          "/assets/audio/VO_45.m4a",
-          "/assets/audio/VO_41.m4a"
+          "./assets/audio/VO_30.m4a",
+          "./assets/audio/VO_31.m4a",
+          "./assets/audio/VO_37.m4a",
+          "./assets/audio/VO_45.m4a",
+          "./assets/audio/VO_41.m4a"
         ],
         f: [
-          "/assets/audio/VO_32.m4a",
-          "/assets/audio/VO_33.m4a",
-          "/assets/audio/VO_38.m4a",
-          "/assets/audio/VO_42.m4a",
-          "/assets/audio/VO_44.m4a"
+          "./assets/audio/VO_32.m4a",
+          "./assets/audio/VO_33.m4a",
+          "./assets/audio/VO_38.m4a",
+          "./assets/audio/VO_42.m4a",
+          "./assets/audio/VO_44.m4a"
         ],
         g: [
-          "/assets/audio/VO_34.m4a",
-          "/assets/audio/VO_35.m4a",
-          "/assets/audio/VO_39.m4a",
+          "./assets/audio/VO_34.m4a",
+          "./assets/audio/VO_35.m4a",
+          "./assets/audio/VO_39.m4a",
           "",
           ""
         ]
@@ -114,7 +114,7 @@ export default {
       }
       this.gaming = true;
       if (!this.firstWin) {
-        playByLocalUrl(null, "/assets/audio/VO_09.m4a").then(() => {
+        playByLocalUrl(null, "./assets/audio/VO_09.m4a").then(() => {
           playByLocalUrl(null, this.letterVoices[arr[0]][4]);
         });
       } else {
@@ -172,7 +172,7 @@ export default {
       return new Promise(resolve => {
         let s = window.Snap("#e001");
         this.successAnimate = s.image(
-          "/assets/images/zan.png",
+          "./assets/images/zan.png",
           resize(590),
           resize(301),
           resize(140),
@@ -232,7 +232,7 @@ export default {
         // console.log("wins");
         this.ani01().then(() => {});
         this.gaming = false;
-        playByLocalUrl(null, "/assets/audio/VO_12.m4a");
+        playByLocalUrl(null, "./assets/audio/VO_12.m4a");
         // shake all A
         _.forEach(this.gameMitrixTemplate, (outer, outerIndex) => {
           _.forEach(outer, (inner, innerIndex) => {
@@ -266,7 +266,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P03 {
   #e001 {

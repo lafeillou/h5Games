@@ -17,39 +17,39 @@ export default {
       letters: {},
       letterVoices: {
         a: [
-          "/assets/audio/VO_02.m4a",
-          "/assets/audio/VO_03.m4a",
-          "/assets/audio/VO_48.m4a"
+          "./assets/audio/VO_02.m4a",
+          "./assets/audio/VO_03.m4a",
+          "./assets/audio/VO_48.m4a"
         ],
         b: [
-          "/assets/audio/VO_04.m4a",
-          "/assets/audio/VO_05.m4a",
-          "/assets/audio/VO_49.m4a"
+          "./assets/audio/VO_04.m4a",
+          "./assets/audio/VO_05.m4a",
+          "./assets/audio/VO_49.m4a"
         ],
         c: [
-          "/assets/audio/VO_16.m4a",
-          "/assets/audio/VO_17.m4a",
-          "/assets/audio/VO_50.m4a"
+          "./assets/audio/VO_16.m4a",
+          "./assets/audio/VO_17.m4a",
+          "./assets/audio/VO_50.m4a"
         ],
         d: [
-          "/assets/audio/VO_18.m4a",
-          "/assets/audio/VO_19.m4a",
-          "/assets/audio/VO_51.m4a"
+          "./assets/audio/VO_18.m4a",
+          "./assets/audio/VO_19.m4a",
+          "./assets/audio/VO_51.m4a"
         ],
         e: [
-          "/assets/audio/VO_30.m4a",
-          "/assets/audio/VO_31.m4a",
-          "/assets/audio/VO_52.m4a"
+          "./assets/audio/VO_30.m4a",
+          "./assets/audio/VO_31.m4a",
+          "./assets/audio/VO_52.m4a"
         ],
         f: [
-          "/assets/audio/VO_32.m4a",
-          "/assets/audio/VO_33.m4a",
-          "/assets/audio/VO_53.m4a"
+          "./assets/audio/VO_32.m4a",
+          "./assets/audio/VO_33.m4a",
+          "./assets/audio/VO_53.m4a"
         ],
         g: [
-          "/assets/audio/VO_34.m4a",
-          "/assets/audio/VO_35.m4a",
-          "/assets/audio/VO_54.m4a"
+          "./assets/audio/VO_34.m4a",
+          "./assets/audio/VO_35.m4a",
+          "./assets/audio/VO_54.m4a"
         ]
       },
       letterSvgWrap: null,
@@ -73,9 +73,9 @@ export default {
   methods: {
     onTap() {
       if (!this.voiceJobDone) {
-        playByLocalUrl(null, "/assets/audio/VO_60.m4a")
+        playByLocalUrl(null, "./assets/audio/VO_60.m4a")
           .then(() => {
-            return playByLocalUrl(null, "/assets/audio/VO_61.m4a");
+            return playByLocalUrl(null, "./assets/audio/VO_61.m4a");
           })
           .then(() => {
             this.voiceJobDone = true;
@@ -90,9 +90,9 @@ export default {
     },
     // handleClickDesk() {
     //   if (!this.voiceJobDone) {
-    //     playByLocalUrl(null, "/assets/audio/VO_60.m4a")
+    //     playByLocalUrl(null, "./assets/audio/VO_60.m4a")
     //       .then(() => {
-    //         return playByLocalUrl(null, "/assets/audio/VO_61.m4a");
+    //         return playByLocalUrl(null, "./assets/audio/VO_61.m4a");
     //       })
     //       .then(() => {
     //         this.voiceJobDone = true;
@@ -130,7 +130,7 @@ export default {
         });
         let image = s
           .image(
-            "/assets/images/play-letters/play-a.png",
+            "./assets/images/play-letters/play-a.png",
             resize(692),
             resize(232),
             resize(400),
@@ -186,7 +186,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P10 {
   #e00 {

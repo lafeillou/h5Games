@@ -17,39 +17,39 @@ export default {
       letters: {},
       letterVoices: {
         a: [
-          "/assets/audio/VO_02.m4a",
-          "/assets/audio/VO_03.m4a",
-          "/assets/audio/VO_07.m4a"
+          "./assets/audio/VO_02.m4a",
+          "./assets/audio/VO_03.m4a",
+          "./assets/audio/VO_07.m4a"
         ],
         b: [
-          "/assets/audio/VO_04.m4a",
-          "/assets/audio/VO_05.m4a",
-          "/assets/audio/VO_08.m4a"
+          "./assets/audio/VO_04.m4a",
+          "./assets/audio/VO_05.m4a",
+          "./assets/audio/VO_08.m4a"
         ],
         c: [
-          "/assets/audio/VO_16.m4a",
-          "/assets/audio/VO_17.m4a",
-          "/assets/audio/VO_21.m4a"
+          "./assets/audio/VO_16.m4a",
+          "./assets/audio/VO_17.m4a",
+          "./assets/audio/VO_21.m4a"
         ],
         d: [
-          "/assets/audio/VO_18.m4a",
-          "/assets/audio/VO_19.m4a",
-          "/assets/audio/VO_22.m4a"
+          "./assets/audio/VO_18.m4a",
+          "./assets/audio/VO_19.m4a",
+          "./assets/audio/VO_22.m4a"
         ],
         e: [
-          "/assets/audio/VO_30.m4a",
-          "/assets/audio/VO_31.m4a",
-          "/assets/audio/VO_37.m4a"
+          "./assets/audio/VO_30.m4a",
+          "./assets/audio/VO_31.m4a",
+          "./assets/audio/VO_37.m4a"
         ],
         f: [
-          "/assets/audio/VO_32.m4a",
-          "/assets/audio/VO_33.m4a",
-          "/assets/audio/VO_38.m4a"
+          "./assets/audio/VO_32.m4a",
+          "./assets/audio/VO_33.m4a",
+          "./assets/audio/VO_38.m4a"
         ],
         g: [
-          "/assets/audio/VO_34.m4a",
-          "/assets/audio/VO_35.m4a",
-          "/assets/audio/VO_39.m4a"
+          "./assets/audio/VO_34.m4a",
+          "./assets/audio/VO_35.m4a",
+          "./assets/audio/VO_39.m4a"
         ]
       },
       // 节点
@@ -62,14 +62,14 @@ export default {
       pointToBDone: false,
       lettersPos: {
         c: {
-          url: "/assets/images/letters/c.png",
+          url: "./assets/images/letters/c.png",
           w: 173,
           h: 173,
           x: 680,
           y: 149
         },
         d: {
-          url: "/assets/images/letters/d.png",
+          url: "./assets/images/letters/d.png",
           w: 173,
           h: 173,
           x: 908,
@@ -129,7 +129,7 @@ export default {
 
       //   // 同时显示AB两个字母
       if (this.isADone && this.isBDone && !this.isABDone) {
-        playByLocalUrl(null, "/assets/audio/VO_06.m4a");
+        playByLocalUrl(null, "./assets/audio/VO_06.m4a");
         this.ani04("c-d").then(() => {
           this.isABDone = true;
         });
@@ -364,7 +364,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/mixin.scss";
+@import "@/sass/mixin.scss";
 
 .P04 {
   #e002 {
